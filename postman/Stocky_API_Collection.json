@@ -1,0 +1,332 @@
+{
+  "info": {
+    "name": "Stocky API Collection",
+    "description": "Complete API collection for Stocky stock rewards system",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "user_id",
+      "value": "user123",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/health",
+          "host": ["{{base_url}}"],
+          "path": ["health"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Core Reward APIs",
+      "item": [
+        {
+          "name": "Create Reward",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": \"{{user_id}}\",\n  \"stock_symbol\": \"RELIANCE\",\n  \"shares\": 2.5,\n  \"reward_type\": \"onboarding\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/reward",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "reward"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Today's Stocks",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/today-stocks/{{user_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "today-stocks", "{{user_id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Historical INR",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/historical-inr/{{user_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "historical-inr", "{{user_id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get User Stats",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/stats/{{user_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "stats", "{{user_id}}"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Portfolio",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/portfolio/{{user_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "portfolio", "{{user_id}}"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Ledger APIs",
+      "item": [
+        {
+          "name": "Get Ledger Entries",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/ledger/entries?user_id={{user_id}}&limit=50",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "ledger", "entries"],
+              "query": [
+                {
+                  "key": "user_id",
+                  "value": "{{user_id}}"
+                },
+                {
+                  "key": "limit",
+                  "value": "50"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Adjustment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"original_event_id\": \"event-uuid-here\",\n  \"shares_adjustment\": 0.5,\n  \"reason\": \"Correction for calculation error\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/ledger/adjustment",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "ledger", "adjustment"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Refund",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"original_event_id\": \"event-uuid-here\",\n  \"reason\": \"User eligibility revoked\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/ledger/refund",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "ledger", "refund"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Account Balance",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/ledger/balance/USER_STOCK?user_id={{user_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "ledger", "balance", "USER_STOCK"],
+              "query": [
+                {
+                  "key": "user_id",
+                  "value": "{{user_id}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Validate Ledger Integrity",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/v1/ledger/integrity",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "ledger", "integrity"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Admin APIs",
+      "item": [
+        {
+          "name": "Get Price Status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/price-status",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "price-status"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Force Price Update",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/force-price-update",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "force-price-update"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Stale Data Status",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/admin/stale-data",
+              "host": ["{{base_url}}"],
+              "path": ["admin", "stale-data"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Test Scenarios",
+      "item": [
+        {
+          "name": "Multiple Stock Rewards",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": \"{{user_id}}\",\n  \"stock_symbol\": \"TCS\",\n  \"shares\": 1.0,\n  \"reward_type\": \"referral\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/reward",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "reward"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Fractional Shares Reward",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": \"{{user_id}}\",\n  \"stock_symbol\": \"INFY\",\n  \"shares\": 0.123456,\n  \"reward_type\": \"trading_milestone\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/reward",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "reward"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Historical Date Reward",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"user_id\": \"{{user_id}}\",\n  \"stock_symbol\": \"HDFCBANK\",\n  \"shares\": 3.0,\n  \"reward_type\": \"bonus\",\n  \"timestamp\": \"2024-01-10T15:30:00Z\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/v1/reward",
+              "host": ["{{base_url}}"],
+              "path": ["api", "v1", "reward"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
